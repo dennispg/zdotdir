@@ -40,8 +40,10 @@ bindkey -M menuselect '\r' .accept-line
 bindkey -M menuselect '\e' send-break
 bindkey -M menuselect '^[OD' backward-delete-char
 [[ -n "${key[Home]}"     ]]  && bindkey -M menuselect "${key[Home]}"     backward-delete-char
-[[ -n "${key[PageUp]}"   ]]  && bindkey -M menuselect "${key[PageUp]}"   up-history
-[[ -n "${key[PageDown]}" ]]  && bindkey -M menuselect "${key[PageDown]}" down-history
+[[ -n "${key[Up]}"       ]]  && bindkey -M menuselect "${key[Up]}"       up-line-or-history
+[[ -n "${key[Down]}"     ]]  && bindkey -M menuselect "${key[Down]}"     down-line-or-history
+[[ -n "${key[PageUp]}"   ]]  && bindkey -M menuselect "${key[PageUp]}"   forward-word
+[[ -n "${key[PageDown]}" ]]  && bindkey -M menuselect "${key[PageDown]}" backward-word
 
 bindkey  "\e\e"   backward-kill-line
 bindkey  "^[[3~"  delete-char

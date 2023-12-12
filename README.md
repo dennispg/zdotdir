@@ -39,3 +39,16 @@ export ZDOTDIR=~/.config/zsh
 EOF
 
 ```
+
+## Fonts
+
+Install nerd fonts via homebrew:
+
+```zsh
+brew tap homebrew/cask-fonts
+brew install --cask font-meslo-lg-nerd-font
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-hack-nerd-font
+brew install --cask font-inconsolata-nerd-font
+brew install --cask font-sauce-code-pro-nerd-font
+```

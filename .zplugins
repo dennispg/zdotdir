@@ -38,10 +38,11 @@ $ZDOTDIR/plugins/fnm
 $ZDOTDIR/plugins/pdm
 $ZDOTDIR/plugins/orb
 $ZDOTDIR/plugins/completion
-marlonrichert/zsh-autocomplete
 Aloxaf/fzf-tab
+marlonrichert/zsh-autocomplete
 
 # deferred plugins
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-history-substring-search kind:defer
+marlonrichert/zsh-autocomplete kind:defer

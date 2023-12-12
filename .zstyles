@@ -4,13 +4,22 @@
 
 # Set this to whatever you want to use to edit a command
 zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/.zplugins
+zstyle ':antidote:bundle:*' zcompile 'yes'
+zstyle ':antidote:static' file ${ZDOTDIR:-~}/.zplugins.zsh
+zstyle ':antidote:static' zcompile 'yes'
+zstyle ':antidote:plugin:*' defer-options '-p'
 
 zstyle :zle:edit-command-line editor nano
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' file-list all
 
+zstyle -e ':autocomplete:list-choices:*' list-lines 'reply=( $(( LINES / 3 )) )'
 zstyle ':autocomplete:*complete*:*' insert-unambiguous yes    # all Tab widgets
 zstyle ':autocomplete:*history*:*' insert-unambiguous yes     # all history widgets
+zstyle ':autocomplete:history-search-backward:*' list-lines 256
 zstyle ':autocomplete:menu-search:*' insert-unambiguous yes   # ^S
+zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 8
 
 zstyle :omz:plugins:iterm2 shell-integration yes
