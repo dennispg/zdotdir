@@ -3,16 +3,22 @@
 #
 
 # XDG
-export XDG_CONFIG_HOME=~/.config
-export XDG_CACHE_HOME=~/.cache
-export XDG_DATA_HOME=~/.local/share
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+
 export XDG_STATE_HOME=~/.local/state
 export XDG_RUNTIME_DIR=~/.xdg
 export XDG_PROJECTS_DIR=~/Projects
 
+export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+
 export REPO_HOME=$XDG_CACHE_HOME/repos
 export ANTIDOTE_HOME=$REPO_HOME
 export PDM_HOME=~/.local/share/pdm
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU path fpath
 
 # Set the list of directories that Zsh searches for programs.
 path=(

@@ -7,6 +7,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Lazy-load (autoload) Zsh function files from a directory.
+ZFUNCDIR=${ZDOTDIR:-$HOME}/.zfunctions
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $ZFUNCDIR/*(.:t)
+
 # zstyles
 [[ -r $ZDOTDIR/.zstyles ]] && . $ZDOTDIR/.zstyles
 
@@ -21,6 +26,15 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins} ]]; then
 fi
 source ${zsh_plugins}.zsh
 
+# Source anything in .zshrc.d.
+for _rc in ${ZDOTDIR:-$HOME}/.zshrc.d/*.zsh; do
+  # Ignore tilde files.
+  if [[ $_rc:t != '~'* ]]; then
+    source "$_rc"
+  fi
+done
+unset _rc
+
 typeset -A key
 
 key[Home]=${terminfo[khome]}
@@ -34,17 +48,6 @@ key[Right]=${terminfo[kcuf1]}
 key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
-bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
-bindkey -M menuselect '\r' .accept-line
-bindkey -M menuselect '\e' send-break
-bindkey -M menuselect '^[OD' backward-delete-char
-[[ -n "${key[Home]}"     ]]  && bindkey -M menuselect "${key[Home]}"     backward-delete-char
-[[ -n "${key[Up]}"       ]]  && bindkey -M menuselect "${key[Up]}"       up-line-or-history
-[[ -n "${key[Down]}"     ]]  && bindkey -M menuselect "${key[Down]}"     down-line-or-history
-[[ -n "${key[PageUp]}"   ]]  && bindkey -M menuselect "${key[PageUp]}"   forward-word
-[[ -n "${key[PageDown]}" ]]  && bindkey -M menuselect "${key[PageDown]}" backward-word
-
 bindkey  "\e\e"   backward-kill-line
 bindkey  "^[[3~"  delete-char
 [[ -n "${key[Home]}"     ]]  && bindkey "${key[Home]}" beginning-of-line
@@ -52,5 +55,8 @@ bindkey  "^[[3~"  delete-char
 
 # local .zshrc
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
+
+# To customize prompt, run `p10k configure` or edit .p10k.zsh.
+[[ ! -f ${ZDOTDIR:-$HOME}/.p10k.zsh ]] || source ${ZDOTDIR:-$HOME}/.p10k.zsh
 
 # zprof
